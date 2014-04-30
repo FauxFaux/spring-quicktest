@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/config/one.xml")
+@ContextConfiguration("classpath*:/config/one.xml")
 public class SlowTest {
     @Autowired
     ChippingRoute route;
