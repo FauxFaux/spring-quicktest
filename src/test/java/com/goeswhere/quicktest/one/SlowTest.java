@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/config/one.xml")
-public class Slow {
+public class SlowTest {
     @Autowired
     ChippingRoute route;
 

@@ -23,6 +23,7 @@ public class ChippingRoute extends RouteBuilder {
     private final FetchGenus fetchGenus;
     private final EvaluateTastiness evaluateTastiness;
     private final PrepareForChipper prepareForChipper;
+    private final ThereIsSomethingToIngest thereIsSomethingToIngest;
 
     @Autowired
     public ChippingRoute(@Value("${endpoint_one}") String input,
@@ -32,7 +33,8 @@ public class ChippingRoute extends RouteBuilder {
                          @Value("${rollbacks}") int rollbacksBeforeDlq,
                          FetchGenus fetchGenus,
                          EvaluateTastiness evaluateTastiness,
-                         PrepareForChipper prepareForChipper) {
+                         PrepareForChipper prepareForChipper,
+                         ThereIsSomethingToIngest thereIsSomethingToIngest) {
         this.endpointInput = input;
         this.endpointInputDlq = inputDlq;
         this.endpointChipper = chipper;
@@ -41,6 +43,7 @@ public class ChippingRoute extends RouteBuilder {
         this.fetchGenus = fetchGenus;
         this.evaluateTastiness = evaluateTastiness;
         this.prepareForChipper = prepareForChipper;
+        this.thereIsSomethingToIngest = thereIsSomethingToIngest;
     }
 
     @Override
@@ -58,7 +61,7 @@ public class ChippingRoute extends RouteBuilder {
             .bean(this.fetchGenus)
             .bean(this.evaluateTastiness)
             .choice()
-                .when(new ThereIsSomethingToIngest())
+                .when(thereIsSomethingToIngest)
                     .process(new PeekEmitter("one.chipping.ingest.required"))
                     .bean(this.prepareForChipper)
                     .to(this.endpointChipper)

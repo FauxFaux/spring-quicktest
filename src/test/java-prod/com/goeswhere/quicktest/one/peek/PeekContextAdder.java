@@ -1,5 +1,6 @@
 package com.goeswhere.quicktest.one.peek;
 
+import com.google.common.collect.ImmutableMap;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
@@ -15,6 +16,6 @@ public class PeekContextAdder implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
         exchange.setProperty(Peeker.PEEKER_PROPERTY,
-                peekGenerator.generate().plus("exchange_id", UUID.randomUUID()));
+                new Peeker(peekGenerator, ImmutableMap.of("exchange_id", UUID.randomUUID().toString())));
     }
 }

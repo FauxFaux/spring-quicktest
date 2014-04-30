@@ -53,6 +53,12 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-all</artifactId>
                 <version>1.9.5</version>
@@ -96,7 +102,11 @@
             <artifactId>camel-test</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mockito</groupId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>  
             <artifactId>mockito-all</artifactId>
         </dependency>
         <dependency>
