@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="awsDefaultCredentialsProviderChain" class="com.amazonaws.auth.DefaultAWSCredentialsProviderChain" />
+	<bean id="awsClientConfiguration" class="com.amazonaws.ClientConfiguration"/>
+
+	<bean id="sqs" class="org.apache.camel.component.aws.sqs.SqsComponent" />
+	<bean id="sqsClient" class="com.amazonaws.services.sqs.AmazonSQSClient">
+		<constructor-arg index="0" ref="awsClientConfiguration" />
+		<property name="endpoint" value="${sqs.region}" />
+	</bean>
+
+	<bean id="sns" class="org.apache.camel.component.aws.sns.SnsComponent" />
+	<bean id="snsClient" class="com.amazonaws.services.sns.AmazonSNSClient">
+		<constructor-arg index="0" ref="awsClientConfiguration" />
+		<property name="endpoint" value="${sns.region}" />
+	</bean>
+</beans>
