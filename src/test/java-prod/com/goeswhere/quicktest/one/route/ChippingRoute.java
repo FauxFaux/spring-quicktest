@@ -8,7 +8,7 @@ import com.goeswhere.quicktest.one.service.PrepareForChipper;
 import com.goeswhere.quicktest.one.service.ThereIsSomethingToIngest;
 import com.goeswhere.quicktest.one.util.SqsDlqHelper;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.model.dataformat.JsonLibrary;
+import org.apache.camel.component.gson.GsonDataFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -52,7 +52,7 @@ public class ChippingRoute extends RouteBuilder {
         from(this.endpointInput)
             .process(new PeekContextAdder(this.peek))
             .choice().when(new SqsDlqHelper(this.rollbacksBeforeDlq)).to(this.endpointInputDlq).stop().end()
-            .unmarshal().json(JsonLibrary.Gson)
+            .unmarshal(new GsonDataFormat(Potato.class))
             .process(new PeekBeanDetails<>(Potato.class))
             .process(new PeekEmitter("one.chipping.message.received"))
             .bean(this.fetchGenus)

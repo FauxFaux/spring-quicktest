@@ -6,11 +6,7 @@ import com.google.common.collect.ImmutableMap;
 import java.util.Map;
 
 public class Potato extends Peekabean {
-    public final String colour;
-
-    public Potato(String colour) {
-        this.colour = colour;
-    }
+    public String colour;
 
     @Override
     public Map<String, String> toPeekMap() {

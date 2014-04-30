@@ -17,6 +17,7 @@ public class SqsDlqHelper implements Predicate {
     @Override
     public boolean matches(Exchange exchange) {
         final Map<?, ?> attributes = exchange.getIn().getHeader(SqsConstants.ATTRIBUTES, Collections.emptyMap(), Map.class);
-        return Integer.parseInt(String.valueOf(attributes.get("ApproximateReceiveCount"))) > rollbacksBeforeDlq;
+        final Object attr = attributes.get("ApproximateReceiveCount");
+        return null != attr && Integer.parseInt(String.valueOf(attr)) > rollbacksBeforeDlq;
     }
 }
